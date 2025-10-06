@@ -4,72 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FreshHarvest Market</title>
-    
+
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Spline+Sans:wght@400;500;700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    
-    <style type="text/tailwindcss">
-        :root {
-            --primary-color: #22c55e;
-            --primary-50: #f0fdf4;
-            --primary-100: #dcfce7;
-            --primary-200: #bbf7d0;
-            --primary-300: #86efac;
-            --primary-400: #4ade80;
-            --primary-500: #22c55e;
-            --primary-600: #16a34a;
-            --primary-700: #15803d;
-            --primary-800: #166534;
-            --primary-900: #14532d;
-            --primary-950: #052e16;
-        }
-        
-        /* Single-page navigation logic */
-        main > section {
-            display: none;
-        }
-        /* Show the home page by default, or the targeted section */
-        main > section:target {
-            display: block;
-        }
-        main > section#home {
-            display: block;
-        }
-        main > section:target ~ section#home {
-            display: none;
-        }
 
-        /* Hero Image Style from Home Page */
-        .bg-hero-image {
-            background-image: linear-gradient(to top, rgba(17, 23, 20, 1) 0%, rgba(17, 23, 20, 0) 100%),
-            url("https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop");
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-[#111714] text-white" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
+<body>
 
     <header class="sticky top-0 left-0 right-0 z-30 flex items-center justify-between whitespace-nowrap bg-[#111714]/80 px-10 py-3 backdrop-blur-sm border-b border-gray-800">
         <div class="flex items-center gap-8">
             <a class="flex items-center gap-3 text-white" href="#home">
-                <span class="material-symbols-outlined text-3xl text-[var(--primary-400)]"> eco </span>
+                <span class="material-symbols-outlined text-3xl text-[var(--primary-400)]">eco</span>
                 <h1 class="text-xl font-bold">FreshHarvest</h1>
             </a>
             <nav class="hidden md:flex items-center gap-8">
                 <a class="text-sm font-medium hover:text-[var(--primary-300)] transition-colors" href="#home">Home</a>
                 <a class="text-sm font-medium hover:text-[var(--primary-300)] transition-colors" href="#categories">Categories</a>
-                <a class="text-sm font-medium hover:text-[var(--primary-300)] transition-colors" href="#product">Products</a>
+                <a class="text-sm font-medium hover:text-[var(--primary-300)] transition-colors" href="#products">Products</a>
                 <a class="text-sm font-medium hover:text-[var(--primary-300)] transition-colors" href="#">About</a>
             </nav>
         </div>
         <div class="flex items-center gap-4">
-            <a href="#login" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-5 bg-white/10 hover:bg-white/20 text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
+            <a id="login-btn" href="#login" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-5 bg-white/10 hover:bg-white/20 text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
                 <span class="truncate">Log In</span>
             </a>
-            <button class="relative flex items-center justify-center rounded-full h-10 w-10 bg-[var(--primary-500)] text-white hover:bg-[var(--primary-600)] transition-colors">
-                <span class="material-symbols-outlined"> shopping_cart </span>
+            <div id="user-menu" class="user-menu hidden">
+                <button id="user-menu-btn" class="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span id="user-name" class="text-sm font-medium"></span>
+                </button>
+                <div id="user-dropdown" class="user-dropdown hidden">
+                    <a href="#">My Orders</a>
+                    <a href="#">Profile</a>
+                    <button id="logout-btn">Logout</button>
+                </div>
+            </div>
+            <button id="cart-btn" class="relative flex items-center justify-center rounded-full h-10 w-10 bg-[var(--primary-500)] text-white hover:bg-[var(--primary-600)] transition-colors">
+                <span class="material-symbols-outlined">shopping_cart</span>
+                <span id="cart-badge" class="cart-badge hidden">0</span>
             </button>
         </div>
     </header>
@@ -82,8 +57,8 @@
                     <p class="text-lg text-gray-300 mb-8">Discover the best local, seasonal & organic produce, delivered right to your door.</p>
                     <div class="max-w-xl mx-auto">
                         <label class="flex items-center w-full bg-white/10 border border-white/20 rounded-full h-14 px-4 backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-gray-400 mr-3"> search </span>
-                            <input class="form-input flex-1 bg-transparent text-white placeholder:text-gray-400 focus:outline-none focus:ring-0 border-none" placeholder="Search for fresh produce, dairy, and more" value=""/>
+                            <span class="material-symbols-outlined text-gray-400 mr-3">search</span>
+                            <input id="search-input-hero" class="form-input flex-1 bg-transparent text-white placeholder:text-gray-400 focus:outline-none focus:ring-0 border-none" placeholder="Search for fresh produce, dairy, and more" />
                         </label>
                     </div>
                 </div>
@@ -91,37 +66,13 @@
             <div class="py-20 px-4 sm:px-10 bg-[#1a241e]">
                 <div class="max-w-7xl mx-auto">
                     <h2 class="text-3xl font-bold mb-8 text-center">Featured Products</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
-                        <div class="group">
-                            <div class="aspect-square w-full overflow-hidden rounded-lg bg-gray-800"><img alt="Organic Strawberries" class="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity" src="https://images.unsplash.com/photo-1591286788224-dd9b325b3e21?q=80&w=800&auto=format&fit=crop"/></div>
-                            <div class="mt-4"><h3 class="text-base font-medium">Organic Strawberries</h3><p class="text-sm text-gray-400">Sweet and juicy</p><p class="mt-1 font-semibold">$4.99 / lb</p></div>
-                        </div>
-                        <div class="group">
-                            <div class="aspect-square w-full overflow-hidden rounded-lg bg-gray-800"><img alt="Free-Range Eggs" class="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity" src="https://images.unsplash.com/photo-1598965675045-45c5b991ad35?q=80&w=800&auto=format&fit=crop"/></div>
-                            <div class="mt-4"><h3 class="text-base font-medium">Free-Range Eggs</h3><p class="text-sm text-gray-400">From happy hens</p><p class="mt-1 font-semibold">$6.00 / dozen</p></div>
-                        </div>
-                        <div class="group">
-                            <div class="aspect-square w-full overflow-hidden rounded-lg bg-gray-800"><img alt="Artisan Bread" class="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity" src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800&auto=format&fit=crop"/></div>
-                            <div class="mt-4"><h3 class="text-base font-medium">Artisan Bread</h3><p class="text-sm text-gray-400">Baked fresh daily</p><p class="mt-1 font-semibold">$5.50 / loaf</p></div>
-                        </div>
-                        <div class="group">
-                            <div class="aspect-square w-full overflow-hidden rounded-lg bg-gray-800"><img alt="Fresh Milk" class="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity" src="https://images.unsplash.com/photo-1620189507195-68309c04c4d5?q=80&w=800&auto=format&fit=crop"/></div>
-                            <div class="mt-4"><h3 class="text-base font-medium">Fresh Milk</h3><p class="text-sm text-gray-400">Creamy and delicious</p><p class="mt-1 font-semibold">$3.50 / gallon</p></div>
-                        </div>
-                    </div>
+                    <div id="featured-products" class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10"></div>
                 </div>
             </div>
             <div class="py-20 px-4 sm:px-10">
                 <div class="max-w-7xl mx-auto">
                     <h2 class="text-3xl font-bold mb-8 text-center">Shop by Category</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
-                        <a class="group" href="#categories"><div class="aspect-square w-full flex items-center justify-center bg-gray-800 rounded-lg overflow-hidden relative"><img class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://images.unsplash.com/photo-1543076659-9380cdf10613?q=80&w=800&auto=format&fit=crop"/><div class="absolute inset-0 bg-black/60 flex items-center justify-center"><h3 class="text-lg font-semibold">Fresh Produce</h3></div></div></a>
-                        <a class="group" href="#categories"><div class="aspect-square w-full flex items-center justify-center bg-gray-800 rounded-lg overflow-hidden relative"><img class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://images.unsplash.com/photo-1552869599-221656b5066a?q=80&w=800&auto=format&fit=crop"/><div class="absolute inset-0 bg-black/60 flex items-center justify-center"><h3 class="text-lg font-semibold">Dairy & Eggs</h3></div></div></a>
-                        <a class="group" href="#categories"><div class="aspect-square w-full flex items-center justify-center bg-gray-800 rounded-lg overflow-hidden relative"><img class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?q=80&w=800&auto=format&fit=crop"/><div class="absolute inset-0 bg-black/60 flex items-center justify-center"><h3 class="text-lg font-semibold">Baked Goods</h3></div></div></a>
-                        <a class="group" href="#categories"><div class="aspect-square w-full flex items-center justify-center bg-gray-800 rounded-lg overflow-hidden relative"><img class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://images.unsplash.com/photo-1622393393282-d15e227a9a83?q=80&w=800&auto=format&fit=crop"/><div class="absolute inset-0 bg-black/60 flex items-center justify-center"><h3 class="text-lg font-semibold">Meats</h3></div></div></a>
-                        <a class="group" href="#categories"><div class="aspect-square w-full flex items-center justify-center bg-gray-800 rounded-lg overflow-hidden relative"><img class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://images.unsplash.com/photo-1572504930262-b6d393683a55?q=80&w=800&auto=format&fit=crop"/><div class="absolute inset-0 bg-black/60 flex items-center justify-center"><h3 class="text-lg font-semibold">Pantry</h3></div></div></a>
-                        <a class="group" href="#categories"><div class="aspect-square w-full flex items-center justify-center bg-gray-800 rounded-lg overflow-hidden relative"><img class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://images.unsplash.com/photo-1558108560-141a08c02a7a?q=80&w=800&auto=format&fit=crop"/><div class="absolute inset-0 bg-black/60 flex items-center justify-center"><h3 class="text-lg font-semibold">Specialty</h3></div></div></a>
-                    </div>
+                    <div id="categories-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center"></div>
                 </div>
             </div>
         </section>
@@ -131,22 +82,79 @@
                 <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
                 <div class="relative z-10 w-full max-w-md space-y-6 rounded-2xl bg-[#111714]/80 p-8 shadow-2xl">
                     <div class="text-center">
-                        <h2 class="text-3xl font-bold text-white">Login</h2>
-                        <p class="mt-2 text-sm text-gray-400">Enter your credentials to access your account.</p>
+                        <h2 class="text-3xl font-bold text-white">Welcome Back</h2>
+                        <p class="mt-2 text-sm text-gray-400">Sign in to your account or create a new one</p>
                     </div>
-                    <form class="space-y-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-300" for="email">Username or Email</label>
-                            <div class="mt-1"><input autocomplete="email" class="form-input block w-full rounded-lg border-gray-600 bg-[#1c2620] px-4 py-3 text-white placeholder-gray-500 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]" id="email" name="email" placeholder="you@example.com" required="" type="email"/></div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-300" for="password">Password</label>
-                            <div class="mt-1"><input autocomplete="current-password" class="form-input block w-full rounded-lg border-gray-600 bg-[#1c2620] px-4 py-3 text-white placeholder-gray-500 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]" id="password" name="password" placeholder="••••••••" required="" type="password"/></div>
-                        </div>
-                        <div class="flex items-center justify-end"><div class="text-sm"><a class="font-medium text-[var(--primary-color)] hover:text-green-400" href="#">Forgot your password?</a></div></div>
-                        <div><button class="flex w-full justify-center rounded-full border border-transparent bg-[var(--primary-color)] px-4 py-3 text-sm font-bold text-[#111714] shadow-sm hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-offset-2 focus:ring-offset-gray-900" type="submit">Log In</button></div>
-                    </form>
-                    <p class="text-center text-sm text-gray-400">Don't have an account? <a class="font-medium text-[var(--primary-color)] hover:text-green-400" href="#">Sign up</a></p>
+
+                    <div id="login-section">
+                        <form id="login-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300" for="login-email">Email</label>
+                                <div class="mt-1">
+                                    <input type="email" id="login-email" required
+                                           class="form-input block w-full rounded-lg border-gray-600 bg-[#1c2620] px-4 py-3 text-white placeholder-gray-500 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]"
+                                           placeholder="you@example.com"/>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300" for="login-password">Password</label>
+                                <div class="mt-1">
+                                    <input type="password" id="login-password" required
+                                           class="form-input block w-full rounded-lg border-gray-600 bg-[#1c2620] px-4 py-3 text-white placeholder-gray-500 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]"
+                                           placeholder="••••••••"/>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit"
+                                        class="flex w-full justify-center rounded-full border border-transparent bg-[var(--primary-color)] px-4 py-3 text-sm font-bold text-[#111714] shadow-sm hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-offset-2 focus:ring-offset-gray-900">
+                                    Log In
+                                </button>
+                            </div>
+                        </form>
+                        <p class="mt-4 text-center text-sm text-gray-400">
+                            Don't have an account?
+                            <button id="show-register" class="font-medium text-[var(--primary-color)] hover:text-green-400">Sign up</button>
+                        </p>
+                    </div>
+
+                    <div id="register-section" class="hidden">
+                        <form id="register-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300" for="register-name">Name</label>
+                                <div class="mt-1">
+                                    <input type="text" id="register-name" required
+                                           class="form-input block w-full rounded-lg border-gray-600 bg-[#1c2620] px-4 py-3 text-white placeholder-gray-500 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]"
+                                           placeholder="John Doe"/>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300" for="register-email">Email</label>
+                                <div class="mt-1">
+                                    <input type="email" id="register-email" required
+                                           class="form-input block w-full rounded-lg border-gray-600 bg-[#1c2620] px-4 py-3 text-white placeholder-gray-500 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]"
+                                           placeholder="you@example.com"/>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300" for="register-password">Password</label>
+                                <div class="mt-1">
+                                    <input type="password" id="register-password" required
+                                           class="form-input block w-full rounded-lg border-gray-600 bg-[#1c2620] px-4 py-3 text-white placeholder-gray-500 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]"
+                                           placeholder="••••••••"/>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit"
+                                        class="flex w-full justify-center rounded-full border border-transparent bg-[var(--primary-color)] px-4 py-3 text-sm font-bold text-[#111714] shadow-sm hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-offset-2 focus:ring-offset-gray-900">
+                                    Sign Up
+                                </button>
+                            </div>
+                        </form>
+                        <p class="mt-4 text-center text-sm text-gray-400">
+                            Already have an account?
+                            <button id="show-login" class="font-medium text-[var(--primary-color)] hover:text-green-400">Log in</button>
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -158,85 +166,24 @@
                         <h1 class="text-4xl font-bold tracking-tighter text-[#F4E9E0] sm:text-5xl md:text-6xl">Explore Our Categories</h1>
                         <p class="mx-auto mt-4 max-w-2xl text-lg text-[#A18262]">From freshly picked vegetables to artisan breads, find everything you need for your farm-to-table meals.</p>
                     </div>
-                    <div class="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
-                        <a class="group relative flex aspect-[4/3] transform flex-col overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl" href="#product"><div class="absolute inset-0 z-10 bg-black/40 transition-colors group-hover:bg-black/60"></div><img alt="Fruits" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=800&auto=format&fit=crop"/><div class="relative z-20 mt-auto p-4"><h3 class="text-xl font-bold text-white">Fruits</h3></div></a>
-                        <a class="group relative flex aspect-[4/3] transform flex-col overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl" href="#product"><div class="absolute inset-0 z-10 bg-black/40 transition-colors group-hover:bg-black/60"></div><img alt="Vegetables" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1597362925123-518d3d5895aa?q=80&w=800&auto=format&fit=crop"/><div class="relative z-20 mt-auto p-4"><h3 class="text-xl font-bold text-white">Vegetables</h3></div></a>
-                        <a class="group relative flex aspect-[4/3] transform flex-col overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl" href="#product"><div class="absolute inset-0 z-10 bg-black/40 transition-colors group-hover:bg-black/60"></div><img alt="Dairy & Eggs" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1628088062854-35f19013ce84?q=80&w=800&auto=format&fit=crop"/><div class="relative z-20 mt-auto p-4"><h3 class="text-xl font-bold text-white">Dairy & Eggs</h3></div></a>
-                        <a class="group relative flex aspect-[4/3] transform flex-col overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl" href="#product"><div class="absolute inset-0 z-10 bg-black/40 transition-colors group-hover:bg-black/60"></div><img alt="Meat & Poultry" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=800&auto=format&fit=crop"/><div class="relative z-20 mt-auto p-4"><h3 class="text-xl font-bold text-white">Meat & Poultry</h3></div></a>
-                        <a class="group relative flex aspect-[4/3] transform flex-col overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl" href="#product"><div class="absolute inset-0 z-10 bg-black/40 transition-colors group-hover:bg-black/60"></div><img alt="Baked Goods" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1584323214461-98565a448450?q=80&w=800&auto=format&fit=crop"/><div class="relative z-20 mt-auto p-4"><h3 class="text-xl font-bold text-white">Baked Goods</h3></div></a>
-                        <a class="group relative flex aspect-[4/3] transform flex-col overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl" href="#product"><div class="absolute inset-0 z-10 bg-black/40 transition-colors group-hover:bg-black/60"></div><img alt="Honey & Preserves" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1558642158-43f155254420?q=80&w=800&auto=format&fit=crop"/><div class="relative z-20 mt-auto p-4"><h3 class="text-xl font-bold text-white">Honey & Preserves</h3></div></a>
-                        <a class="group relative flex aspect-[4/3] transform flex-col overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl" href="#product"><div class="absolute inset-0 z-10 bg-black/40 transition-colors group-hover:bg-black/60"></div><img alt="Herbs & Spices" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1599527932313-290d293d19a2?q=80&w=800&auto=format&fit=crop"/><div class="relative z-20 mt-auto p-4"><h3 class="text-xl font-bold text-white">Herbs & Spices</h3></div></a>
-                        <a class="group relative flex aspect-[4/3] transform flex-col overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl" href="#product"><div class="absolute inset-0 z-10 bg-black/40 transition-colors group-hover:bg-black/60"></div><img alt="Beverages" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1621610260393-780c62a880e3?q=80&w=800&auto=format&fit=crop"/><div class="relative z-20 mt-auto p-4"><h3 class="text-xl font-bold text-white">Beverages</h3></div></a>
-                    </div>
+                    <div id="categories-page-grid" class="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"></div>
                 </div>
             </div>
         </section>
 
-        <section id="product" class="bg-[#F7F4EF] text-[#382213]">
-             <div class="flex-1 px-10 py-12">
-                <div class="mx-auto max-w-7xl">
-                    <div class="flex gap-2 p-4">
-                        <a class="text-[#A58D7A] text-sm font-medium leading-normal" href="#home">Shop</a>
-                        <span class="text-[#A58D7A] text-sm font-medium leading-normal">/</span>
-                        <a class="text-[#A58D7A] text-sm font-medium leading-normal" href="#categories">Fresh Produce</a>
-                        <span class="text-[#A58D7A] text-sm font-medium leading-normal">/</span>
-                        <span class="text-[#382213] text-sm font-medium leading-normal">Heirloom Tomatoes</span>
-                    </div>
-                    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="col-span-2"><div class="h-full w-full overflow-hidden rounded-xl bg-cover bg-center" style='background-image: url("https://images.unsplash.com/photo-1561155708-935d88891439?q=80&w=1200&auto=format&fit=crop"); min-height: 400px;'></div></div>
-                            <div><div class="h-full w-full overflow-hidden rounded-xl bg-cover bg-center" style='background-image: url("https://images.unsplash.com/photo-1594895244399-52a7879b69b5?q=80&w=800&auto=format&fit=crop"); min-height: 200px;'></div></div>
-                            <div><div class="h-full w-full overflow-hidden rounded-xl bg-cover bg-center" style='background-image: url("https://images.unsplash.com/photo-1607305387299-a8d0be429a1c?q=80&w=800&auto=format&fit=crop"); min-height: 200px;'></div></div>
-                        </div>
-                        <div class="flex flex-col gap-6 p-4">
-                            <div><h1 class="text-4xl font-bold tracking-tight text-[#382213]">Heirloom Tomatoes</h1><p class="mt-2 text-lg text-[#A58D7A]">Grown by Farmer Ethan at Green Acres Farm</p></div>
-                            <p class="text-base leading-relaxed text-[#594435]">These heirloom tomatoes are known for their rich flavor and unique shapes. Grown with care and without pesticides, they are a perfect addition to any meal.</p>
-                            <div class="flex items-center gap-4"><p class="text-3xl font-bold text-[#7E5736]">$5.99 / lb</p></div>
-                            <div class="flex items-center gap-4">
-                                <div class="flex items-center rounded-full border border-[#E5DACE]"><button class="p-3 text-[#A58D7A] transition-colors hover:text-[#382213]"><span class="material-symbols-outlined">remove</span></button><span class="px-4 font-medium">1</span><button class="p-3 text-[#A58D7A] transition-colors hover:text-[#382213]"><span class="material-symbols-outlined">add</span></button></div>
-                                <button class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[var(--primary-color)] px-6 py-3 text-base font-bold text-white shadow-md transition-all hover:bg-[var(--primary-600)] hover:shadow-lg"><span class="truncate">Add to Cart</span></button>
-                            </div>
-                            <div class="rounded-xl border border-[#E5DACE] p-6">
-                                <h2 class="text-xl font-bold text-[#382213]">About the Farmer</h2>
-                                <div class="mt-4 flex items-center gap-4">
-                                    <div class="h-16 w-16 flex-shrink-0 rounded-full bg-cover bg-center" style='background-image: url("https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?q=80&w=400&auto=format&fit=crop");'></div>
-                                    <div><p class="font-semibold text-[#382213]">Farmer Ethan</p><p class="text-sm text-[#A58D7A]">Green Acres Farm</p></div>
-                                </div>
-                                <p class="mt-4 text-base text-[#594435]">Ethan has been farming for over 15 years, specializing in organic produce. His commitment to sustainable practices ensures the highest quality and freshest products.</p>
-                            </div>
+        <section id="products" class="bg-[#1a241e] min-h-screen">
+            <div class="px-4 sm:px-10 py-20">
+                <div class="max-w-7xl mx-auto">
+                    <div class="mb-12">
+                        <h1 class="text-4xl font-bold mb-4">All Products</h1>
+                        <div class="max-w-xl">
+                            <label class="flex items-center w-full bg-white/10 border border-white/20 rounded-full h-12 px-4">
+                                <span class="material-symbols-outlined text-gray-400 mr-3">search</span>
+                                <input id="search-input" class="form-input flex-1 bg-transparent text-white placeholder:text-gray-400 focus:outline-none focus:ring-0 border-none" placeholder="Search products..." />
+                            </label>
                         </div>
                     </div>
-                    <div class="mt-16 border-t border-[#E5DACE] pt-12">
-                        <h2 class="text-3xl font-bold tracking-tight text-[#382213]">Customer Reviews</h2>
-                        <div class="mt-10 space-y-8">
-                            <div class="border-t border-[#E5DACE] pt-8">
-                                <div class="flex items-start gap-4">
-                                    <div class="h-12 w-12 flex-shrink-0 rounded-full bg-cover bg-center" style='background-image: url("https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop");'></div>
-                                    <div class="flex-1">
-                                        <div class="flex items-baseline justify-between"><div><p class="font-semibold text-[#382213]">Sophia Clark</p><p class="text-sm text-[#A58D7A]">2 weeks ago</p></div><div class="flex gap-0.5 text-[#FFB400]"><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span></div></div>
-                                        <p class="mt-3 text-base text-[#594435]">Absolutely delicious tomatoes! The flavor is unmatched, and they arrived in perfect condition. Will definitely be ordering again.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="border-t border-[#E5DACE] pt-8">
-                                <div class="flex items-start gap-4">
-                                    <div class="h-12 w-12 flex-shrink-0 rounded-full bg-cover bg-center" style='background-image: url("https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=400&auto=format&fit=crop");'></div>
-                                    <div class="flex-1">
-                                        <div class="flex items-baseline justify-between"><div><p class="font-semibold text-[#382213]">Liam Carter</p><p class="text-sm text-[#A58D7A]">1 month ago</p></div><div class="flex gap-0.5 text-[#FFB400]"><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg text-gray-300">star</span></div></div>
-                                        <p class="mt-3 text-base text-[#594435]">Great quality tomatoes, though a bit pricey. The taste is excellent, and I appreciate the organic farming practices.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-16 border-t border-[#E5DACE] pt-12">
-                        <h2 class="text-3xl font-bold tracking-tight text-[#382213]">You Might Also Like</h2>
-                        <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-                            <div class="group relative"><div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200"><div class="h-full w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://images.unsplash.com/photo-1449339132029-7e4c30663158?q=80&w=800&auto=format&fit=crop");'></div></div><div class="mt-4"><h3 class="text-lg font-semibold text-[#382213]"><a class="hover:underline" href="#">Organic Cucumbers</a></h3><p class="mt-1 text-base text-[#A58D7A]">Crisp and refreshing</p><p class="mt-2 text-lg font-bold text-[#7E5736]">$2.49 / each</p></div></div>
-                            <div class="group relative"><div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200"><div class="h-full w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://images.unsplash.com/photo-1629156228399-c8847553b490?q=80&w=800&auto=format&fit=crop");'></div></div><div class="mt-4"><h3 class="text-lg font-semibold text-[#382213]"><a class="hover:underline" href="#">Fresh Basil</a></h3><p class="mt-1 text-base text-[#A58D7A]">Aromatic and flavorful</p><p class="mt-2 text-lg font-bold text-[#7E5736]">$3.00 / bunch</p></div></div>
-                            <div class="group relative"><div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200"><div class="h-full w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://images.unsplash.com/photo-1600422998293-36fa18228555?q=80&w=800&auto=format&fit=crop");'></div></div><div class="mt-4"><h3 class="text-lg font-semibold text-[#382213]"><a class="hover:underline" href="#">Free-Range Eggs</a></h3><p class="mt-1 text-base text-[#A58D7A]">From happy hens</p><p class="mt-2 text-lg font-bold text-[#7E5736]">$6.50 / dozen</p></div></div>
-                        </div>
-                    </div>
+                    <div id="all-products" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10"></div>
                 </div>
             </div>
         </section>
@@ -246,7 +193,7 @@
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
             <div class="mb-6 md:mb-0">
                 <a class="flex items-center justify-center md:justify-start gap-3 text-white mb-2" href="#home">
-                    <span class="material-symbols-outlined text-3xl text-[var(--primary-400)]"> eco </span>
+                    <span class="material-symbols-outlined text-3xl text-[var(--primary-400)]">eco</span>
                     <h1 class="text-xl font-bold">FreshHarvest</h1>
                 </a>
                 <p class="text-sm">Your daily dose of freshness.</p>
@@ -262,5 +209,35 @@
         </div>
     </footer>
 
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.getElementById('show-register')?.addEventListener('click', () => {
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('register-section').classList.remove('hidden');
+        });
+
+        document.getElementById('show-login')?.addEventListener('click', () => {
+            document.getElementById('register-section').classList.add('hidden');
+            document.getElementById('login-section').classList.remove('hidden');
+        });
+
+        window.addEventListener('hashchange', () => {
+            if (window.location.hash === '#categories') {
+                const grid = document.getElementById('categories-page-grid');
+                if (grid) {
+                    grid.innerHTML = CATEGORIES.map(category => `
+                        <a class="group relative flex aspect-[4/3] transform flex-col overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl" href="#products?category=${encodeURIComponent(category.name)}">
+                            <div class="absolute inset-0 z-10 bg-black/40 transition-colors group-hover:bg-black/60"></div>
+                            <img alt="${category.name}" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" src="${category.image}"/>
+                            <div class="relative z-20 mt-auto p-4">
+                                <h3 class="text-xl font-bold text-white">${category.name}</h3>
+                            </div>
+                        </a>
+                    `).join('');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
